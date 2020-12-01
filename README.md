@@ -61,3 +61,44 @@ mix phx.gen.context Schemas.RecordTagRel record_tag_rel openid:string record_id:
 ```
 
 该命令会生成schema,migrate,crud文件.
+
+
+
+## ECTO
+
+1. 如果记录不存在就创建，否则counter 做update
+```elixir
+defp upsert!(path, counter) do
+  import Ecto.Query
+  date = Date.utc_today()
+  query = from(m in Dashbit.Metrics.Metric, update: [inc: [counter: ^counter]])
+
+  Dashbit.Repo.insert!(
+    %Dashbit.Metrics.Metric{date: date, path: path, counter: counter},
+    on_conflict: query,
+    conflict_target: [:date, :path]
+  )
+end
+```
+
+2. 执行更新后返回一些值？
+```elixir
+result = from(v in MyModel, where: v.id == ^instance_id, select: {v.id, v.counter})
+         |> MyRepo.update_all([inc: [counter: 1]])
+
+```
+
+3. 修改ECTO默认的inserted_at,updated_at字段
+```elixir
+use Ecto.Schema
+下面添加
+  @timestamps_opts inserted_at: :create_time
+  @timestamps_opts updated_at: :update_time
+  ```
+
+
+## VSCode
+1. 保存时候自动格式化
+```vscode
+"editor.formatOnSave": true,
+```
