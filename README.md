@@ -61,6 +61,10 @@ mix phx.gen.schema Schemas.RecordTagRel record_tag_rel openid:string record_id:i
           timestamps()
     end
   ```
+最后执行
+```elixir
+mix ecto.migrate
+```
 
 #### 创建Context
 我理解这个context就是生成某个表的crud
