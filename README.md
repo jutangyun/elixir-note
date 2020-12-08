@@ -36,6 +36,14 @@ Options
 mix phx.new demo --no-webpack --no-html
 ```
 
+安装依赖包
+```elixir
+mix deps.get
+```
+网络不好可以用镜像，shell(linux/osx)执行
+```
+HEX_MIRROR=https://repo.hex.pm mix deps.get
+```
 #### 创建Schema
 ```elixir
 mix phx.gen.schema Schemas.RecordTagRel record_tag_rel openid:string record_id:integer tag_id:integer
