@@ -76,6 +76,33 @@ mix phx.gen.context Schemas.RecordTagRel record_tag_rel openid:string record_id:
 
 
 
+## liveview 和live_component
+liveview 一个实时视图，扩展名用leex，l就是live意思。
+live_component顾名思义是一个组件，可以随便引用的
+有个基于liveview/component的开源库surface
+https://github.com/msaraiva/surface
+
+在liveview中引用一个component：
+```elixir
+<%= live_component @socket, CardengineWeb.Card, id: "1", cardname: "bbbb"%>
+```
+id是用来区分有状态和无状态组件的，无状态组件不用传id。
+如果组件内部有handle_event/3方法，那么id是必须传的，否则要报错，有了这个处理自身事件的方法
+自然是有状态的组件了。
+
+另外如果是要调用自己，需要传入phx-target="<%= @myself %>"，如在组件内部的render:
+```elixir
+  def render(assigns) do
+    ~L"""
+    <div class="card">
+      <div>myname:<%=@cardname %></div>
+      <button phx-click="card-click" phx-target="<%= @myself %>">card click</button>
+    </div>
+    """
+  end
+  ```
+  渲染组件会生成一个按钮，点击按钮会触发card-click事件，如果没有phx-target="<%= @myself %>"，调用的是父view的handle_event/3 ,要调用组件内部的handle_event/3就需要加上这个。
+
 ## ECTO
 
 1. 如果记录不存在就创建，否则counter 做update
