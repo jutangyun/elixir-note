@@ -86,7 +86,13 @@ https://github.com/msaraiva/surface
 ```elixir
 <%= live_component @socket, CardengineWeb.Card, id: "1", cardname: "bbbb"%>
 ```
-id是用来区分有状态和无状态组件的，无状态组件不用传id。
+组件要显示的内容可以放到render方法中或指定一个文件来渲染:
+```elixir
+ def render(assigns) do
+    Phoenix.View.render(AppWeb.BoxesView, "boxes_list_component.html", assigns)
+  end
+  ```
+id是组件编号，设置了id那么为状态组件，无状态组件不用传id。
 如果组件内部有handle_event/3方法，那么id是必须传的，否则要报错，有了这个处理自身事件的方法
 自然是有状态的组件了。
 
