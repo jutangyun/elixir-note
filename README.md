@@ -74,6 +74,16 @@ mix phx.gen.context Schemas.RecordTagRel record_tag_rel openid:string record_id:
 
 该命令会生成schema,migrate,crud文件.
 
+## 解决cors跨域问题
+mix.exs中添加
+```elixir
+{:corsica, "~> 1.0"}
+```
+然后在endpoint文件底部添加
+```elixir
+plug Corsica, origins: "*", allow_headers: :all  <---这一行
+plug ApiGatewayWeb.Router
+```
 
 
 ## liveview 和live_component
