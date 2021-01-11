@@ -2,6 +2,34 @@
 # Elixir/Phoenix笔记
 主要记录我司开发人员在日常开发中的一些开发笔记，毕竟elixir/phoenix太小众了，国内资料难找啊..
 
+## debug
+### 1. vscode
+在项目根目录建立 launch.json文件:
+```js
+{
+  // 使用 IntelliSense 了解相关属性。 
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "mix_task",
+      "name": "mix (Default task)",
+      "request": "launch",
+      "projectDir": "${workspaceRoot}"
+    },
+    {
+      "type": "mix_task",
+      "name": "phx",
+      "request": "launch",
+      "task": "phx.server",
+      "projectDir": "${workspaceRoot}"
+     
+    }
+  ]
+}
+```
+在debug中选择phx run 启动起来的项目可直接调试
 ## Phoenix Fromework [https://www.phoenixframework.org/]
 ####创建phoenix项目
 ```elixir
