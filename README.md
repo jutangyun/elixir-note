@@ -1,4 +1,10 @@
 
+#HTTPpoison
+POST请求，第二个参数body需要如下来传
+```elixir
+HTTPoison.post "url",  {:form, [page: 1,iplist: "MjMuMjI3LjM4LjMy"]}
+```
+
 # Elixir/Phoenix笔记
 主要记录我司开发人员在日常开发中的一些开发笔记，毕竟elixir/phoenix太小众了，国内资料难找啊..
 
